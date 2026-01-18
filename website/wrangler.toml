@@ -1,0 +1,13 @@
+# Mai-AI Landing Page - Cloudflare Pages
+# Deploy command: npx wrangler pages deploy . --project-name=mai-ai-website
+
+name = "mai-ai-website"
+compatibility_date = "2024-01-01"
+
+[site]
+bucket = "."
+
+# Custom domain configuration
+# After deployment, configure DNS:
+# - CNAME mai-ai.app -> mai-ai-website.pages.dev
+# - Or use Cloudflare Dashboard > Pages > Custom domains

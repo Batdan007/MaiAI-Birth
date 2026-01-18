@@ -43,10 +43,35 @@ MaiAI-Birth/
 └── docs/        # Documentation
 ```
 
-## Live Demo
+## Live
 
-- **Website**: https://maiai.gxeum.com
-- **App**: https://app.maiai.gxeum.com
+- **Website**: https://mai-ai.app
+- **App**: https://app.mai-ai.app
+- **API**: https://api.mai-ai.app
+
+## Deployment
+
+### Static Website (Cloudflare Pages)
+```bash
+cd website
+npx wrangler pages deploy . --project-name=mai-ai-website
+```
+
+### Next.js PWA (Vercel)
+```bash
+cd web
+vercel --prod
+```
+
+### API (Fly.io or Railway)
+```bash
+cd api
+fly launch   # Fly.io
+# OR
+railway up   # Railway
+```
+
+See `DEPLOY.md` for detailed deployment instructions.
 
 ## Joe Dogs Rule
 

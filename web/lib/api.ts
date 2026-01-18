@@ -39,6 +39,14 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
   return res.json();
 }
 
+// Beta signup
+export async function betaSignup(email: string): Promise<{ message: string }> {
+  return request('/beta/signup', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+}
+
 // Auth
 export async function login(email: string, password: string): Promise<{ token: string; user: User }> {
   return request('/auth/login', {

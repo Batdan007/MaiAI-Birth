@@ -1,0 +1,45 @@
+# Mai-AI Birth - Docker Compose
+# Public SaaS deployment
+
+version: '3.8'
+
+services:
+  # Public API (wrapper only)
+  maiai-api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    environment:
+      - MAIAI_BACKEND_URL=${MAIAI_BACKEND_URL:-http://host.docker.internal:8080}
+      - ENVIRONMENT=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Static landing page
+  maiai-website:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./website:/usr/share/nginx/html:ro
+    restart: unless-stopped
+
+  # Next.js PWA (production build)
+  maiai-web:
+    build: ./web
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - maiai-api
+    restart: unless-stopped
+
+# Network for inter-service communication
+networks:
+  default:
+    name: maiai-network
